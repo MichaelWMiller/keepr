@@ -1,0 +1,10 @@
+D:\source\codeworks\wint18\keepr\bin\Debug\netcoreapp2.0\keepr.deps.json
+D:\source\codeworks\wint18\keepr\bin\Debug\netcoreapp2.0\keepr.runtimeconfig.json
+D:\source\codeworks\wint18\keepr\bin\Debug\netcoreapp2.0\keepr.runtimeconfig.dev.json
+D:\source\codeworks\wint18\keepr\bin\Debug\netcoreapp2.0\keepr.dll
+D:\source\codeworks\wint18\keepr\bin\Debug\netcoreapp2.0\keepr.pdb
+D:\source\codeworks\wint18\keepr\obj\Debug\netcoreapp2.0\keepr.csproj.CoreCompileInputs.cache
+D:\source\codeworks\wint18\keepr\obj\Debug\netcoreapp2.0\keepr.AssemblyInfoInputs.cache
+D:\source\codeworks\wint18\keepr\obj\Debug\netcoreapp2.0\keepr.AssemblyInfo.cs
+D:\source\codeworks\wint18\keepr\obj\Debug\netcoreapp2.0\keepr.dll
+D:\source\codeworks\wint18\keepr\obj\Debug\netcoreapp2.0\keepr.pdb
