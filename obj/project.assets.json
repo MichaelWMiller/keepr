@@ -12805,11 +12805,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\source\\codeworks\\wint18\\keepr\\keepr.csproj",
+      "projectUniqueName": "D:\\source\\codeworks\\wint18\\keepr\\keepr.csproj",
       "projectName": "keepr",
-      "projectPath": "d:\\source\\codeworks\\wint18\\keepr\\keepr.csproj",
+      "projectPath": "D:\\source\\codeworks\\wint18\\keepr\\keepr.csproj",
       "packagesPath": "C:\\Users\\mwmil\\.nuget\\packages\\",
-      "outputPath": "d:\\source\\codeworks\\wint18\\keepr\\obj\\",
+      "outputPath": "D:\\source\\codeworks\\wint18\\keepr\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
