@@ -17,10 +17,11 @@ namespace keepr
 {
     public class Startup
     {
-        private readonly string _connectionString = "host=localhost;port=3306;database=keepr;user id=mwm;password=admin;";
+        private readonly string _connectionString; // = "host=localhost;port=3306;database=keepr;user id=mwm;password=admin;";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _connectionString = configuration.GetSection("DB").GetValue<string>("MySQLConnectionString");
         }
 
         public IConfiguration Configuration { get; }
@@ -43,12 +44,13 @@ namespace keepr
                });
            });
             services.AddMvc();
+            services.AddTransient<IDbConnection>(x => CreateDBContext());
             services.AddTransient<UserRepository>();
-            // services.AddTransient<VaultRepository>();
-            // services.AddTransient<KeepRepository>();
+            services.AddTransient<VaultRepository>();
+            services.AddTransient<KeepRepository>();
         }
         private IDbConnection CreateDBContext () {
-            var connection = new MySqlConnection (_connectionString);
+            var connection = new MySqlConnection(_connectionString); 
             connection.Open ();
             return connection;
         }

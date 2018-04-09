@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using Dapper;
 using keepr.Models;
+using MySql.Data.MySqlClient;
 
 namespace keepr.Repositories {
   public class VaultRepository {
@@ -14,21 +15,15 @@ namespace keepr.Repositories {
 
     //Create Vault
     public Vault AddVault (Vault vault) {
-      var success = _db.Execute (@"
-      INSERT INTO vaults (
-        id, 
-        name, 
-        description
-        )
-        VALUES(
-          @Id,
-          @Name,
-          @Description
-        )
-        ", vault);
+      int id = _db.ExecuteScalar<int>($@"
+      INSERT INTO vaults
+      ( name, description, userid)
+        VALUES ( @Name, @Description, @UserId
+      )
+      ", vault);
+      vault.Id = id;
       return vault;
     }
-
     public Vault GetById (int id) {
       return _db.QueryFirstOrDefault<Vault> (@"
       SELECT * FROM vaults where id = @Id", new { Id = id });

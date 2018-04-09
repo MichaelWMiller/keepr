@@ -41,12 +41,12 @@ namespace keepr {
   }
   //ADD VAULT
   [HttpPost]
-  public Vault AddVault (Vault vault) {
+  public Vault AddVault ([FromBody]Vault vault) {
     if (ModelState.IsValid)
     {
       return _repo.AddVault (vault);
     } else {
-      return null;
+     return null;
     }
   }
   //TESTING: GET ALL VAULTS
@@ -54,8 +54,6 @@ namespace keepr {
   public IEnumerable<Vault> GetAllVaults() {
     return _repo.GetAllVaults();
   }
-
-
 
   }
 }
