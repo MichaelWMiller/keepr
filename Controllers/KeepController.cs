@@ -13,13 +13,13 @@ namespace keepr {
       _repo = repo;
     }
 
-    //GET KEEP BY ITS ID
+    //GET KEEP BY ITS ID - works
     [HttpGet ("/api/keep/{id}")]
     public Keep GetById (int id) {
       return _repo.GetById (id);
     }
 
-    //GET ALL KEEPS FOR A VAULTID
+    //GET ALL KEEPS FOR A VAULTID - works
     [HttpGet ("/api/keepbyvault/{vaultId}")]
     public IEnumerable<KeepsByVaultId> GetByVaultId (int vaultId) {
       if (ModelState.IsValid) {
@@ -28,22 +28,22 @@ namespace keepr {
       return null;
     }
 
-    // Delete by keep ID
-    [HttpDelete]
+    // Delete by keep ID - works
+    [HttpDelete("/api/keep/{id}")]
     public string DeleteByKeeperId (int id) {
       return _repo.DeleteByKeepId (id);
     }
 
-    //Update a Keep / PUBLIC/PRIVATE/INCREASE/DECREASE NUMBER COUNTS
-    [HttpPut]
-    public Keep UpdateKeep (int id, Keep keep) {
+    //Update a Keep  - works
+    [HttpPut("/api/keep/{id}")]
+    public Keep UpdateKeep ([FromBody] Keep keep, int id) {
       if (ModelState.IsValid) {
-        return _repo.UpdateKeep (id, keep);
+        return _repo.UpdateKeep (keep, id);
       } else {
         return null;
       }
     }
-    //CREATE KEEP
+    //CREATE KEEP - works
     [HttpPost]
     public Keep AddKeep ([FromBody] Keep keep) {
       if (ModelState.IsValid) {

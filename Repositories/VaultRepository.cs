@@ -47,17 +47,15 @@ namespace keepr.Repositories {
     }
 
     //Update Vault
-    public Vault UpdateVault (int id, Vault vault) {
-      if (GetById (id) != null) {
-        vault.Id = id;
+    public Vault UpdateVault (Vault vault, int id) {
+     
+       
         _db.Execute (@"
         UPDATE vaults SET name = @Name,
         description = @Description
-        WHERE id = @id", new { Id = id });
+        WHERE id = @id", id);
         return vault;
-      } else {
-        return null;
-      }
+      
     }
 
     // ADD VAULTKEEP

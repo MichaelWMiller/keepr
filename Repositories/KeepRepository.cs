@@ -12,7 +12,7 @@ namespace keepr.Repositories{
       _db = db;
     }
 
-//ADD KEEP
+//ADD KEEP - works
     public Keep AddKeep (Keep keep) {
      int id = _db.Execute(@"
         INSERT INTO keeps (
@@ -34,7 +34,7 @@ namespace keepr.Repositories{
       SELECT * FROM keeps where id = @Id", new{ Id = id});
     }
 
-//GET ALL KEEPS FOR A VAULTID
+//GET ALL KEEPS FOR A VAULTID - works
     public IEnumerable<KeepsByVaultId> GetByVaultId (int vaultId) {
       return _db.Query<KeepsByVaultId>(@"
       SELECT vk.vaultid,
@@ -61,11 +61,9 @@ namespace keepr.Repositories{
       return "Keep deleted successfully";
     }
 
-//UPDATE A KEEP
-    public Keep UpdateKeep (int id, Keep keep) {
-      if (GetById(id) != null)
-      {
-        keep.Id = id;
+//UPDATE A KEEP - works
+    public Keep UpdateKeep (Keep keep, int id) {
+        
         _db.Execute(@"
         UPDATE keeps SET
         name = @Name,
@@ -76,13 +74,9 @@ namespace keepr.Repositories{
         ispublic = @Ispublic, 
         nbrviews = @Nbrviews, 
         nbrkeeps = @Nbrkeeps
-        ", new{Id = id});
+        where id = @id
+        ", id);
         return keep;
-      }
-      else
-      {
-        return null;
-      }
     }
 
     //TESTING ONLY - GET ALL KEEPS

@@ -32,10 +32,10 @@ namespace keepr {
       return _repo.DeleteByVaultId (id);
     }
     //UPDATE VAULT
-    [HttpPut]
-    public Vault UpdateVault ([FromBody] int id, Vault vault) {
+    [HttpPut("/api/vault/{id}")]
+    public Vault UpdateVault ([FromBody] Vault vault, int id) {
       if (ModelState.IsValid) {
-        return _repo.UpdateVault (id, vault);
+        return _repo.UpdateVault (vault, id);
       } else {
         return null;
       }
