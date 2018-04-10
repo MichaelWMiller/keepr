@@ -59,7 +59,6 @@ namespace keepr {
       } else {
         return null;
       }
-
     }
 
     //TESTING: GET ALL VAULTS
