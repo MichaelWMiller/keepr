@@ -14,16 +14,17 @@ namespace keepr.Repositories{
 
 //ADD KEEP
     public Keep AddKeep (Keep keep) {
-      var success = _db.Execute(@"
+     int id = _db.Execute(@"
         INSERT INTO keeps (
           id, name, description, imgurl, 
-          articleurl, tags, ispublic, nbrviews, nbrkeeps)
+          articleurl, tags, ispublic, nbrviews, nbrkeeps, userid)
           VALUES (
             @Id, @Name, @Description, @Imgurl, @Articleurl, @Tags, @Ispublic, 
-            @Nbrviews, @Nbrkeeps
+            @Nbrviews, @Nbrkeeps, UserId
           )
-        )
+        
       ", keep);
+      keep.Id = id;
       return keep;
     }
 
@@ -34,12 +35,23 @@ namespace keepr.Repositories{
     }
 
 //GET ALL KEEPS FOR A VAULTID
-    public IEnumerable<Keep> GetByVaultId (Vault vault, int id) {
-      return _db.Query<Keep>(@"
-      SELECT * FROM vaultkeeps vk
-      INNER JOIN keeps k ON k.id = vk.keepId 
-      WHERE (vaultId = @Id)
-      ", new { Id = id});
+    public IEnumerable<KeepsByVaultId> GetByVaultId (int vaultId) {
+      return _db.Query<KeepsByVaultId>(@"
+      SELECT vk.vaultid,
+            vk.keepid,
+            k.name,
+            k.description,
+            k.imgurl,
+            k.articleurl,
+            k.tags,
+            k.IsPublic,
+            k.nbrviews,
+            k.nbrkeeps
+       
+            FROM vaultkeeps vk
+              INNER JOIN keeps k ON k.id = vk.keepId 
+            WHERE (vaultId = @Id)
+      ", new { Id = vaultId});
     }
 //DELETE KEEP BY KEEPID
     public string DeleteByKeepId (int id) {
@@ -53,7 +65,7 @@ namespace keepr.Repositories{
     public Keep UpdateKeep (int id, Keep keep) {
       if (GetById(id) != null)
       {
-        keep.id = id;
+        keep.Id = id;
         _db.Execute(@"
         UPDATE keeps SET
         name = @Name,

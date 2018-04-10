@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace keepr {
   [Route ("api/[controller]")]
-  public class VaultController: Controller {
+  public class VaultController : Controller {
 
     private readonly VaultRepository _repo;
-    public VaultController (VaultRepository repo ) {
+    public VaultController (VaultRepository repo) {
       _repo = repo;
     }
 
@@ -20,40 +20,59 @@ namespace keepr {
     }
 
     //GET ALL VAULTS FOR A USER
-    [HttpGet ("{id}")]
-    public IEnumerable<Vault> GetByUserId(User user, int id)
-    {
-      return _repo.GetByUserId (user);
+
+    [HttpGet ("/api/vault/user/{id}")]
+    public IEnumerable<Vault> GetByUserId (int id) {
+      return _repo.GetByUserId (id);
     }
-  //DELETE VAULT BY VAULT ID
+
+    //DELETE VAULT BY VAULT ID
     [HttpDelete]
     public string DeleteByVaultId (int id) {
-      return _repo.DeleteByVaultId(id);
+      return _repo.DeleteByVaultId (id);
     }
-  //UPDATE VAULT
-  [HttpPut]
-  public Vault UpdateVault (int id, Vault vault) {
-    if (ModelState.IsValid) {
-      return _repo.UpdateVault(id, vault);
-    } else {
-      return null;
+    //UPDATE VAULT
+    [HttpPut]
+    public Vault UpdateVault ([FromBody] int id, Vault vault) {
+      if (ModelState.IsValid) {
+        return _repo.UpdateVault (id, vault);
+      } else {
+        return null;
+      }
     }
-  }
-  //ADD VAULT
-  [HttpPost]
-  public Vault AddVault ([FromBody]Vault vault) {
-    if (ModelState.IsValid)
-    {
-      return _repo.AddVault (vault);
-    } else {
-     return null;
+    //ADD VAULT -- ASSIGNS VAULT TO USERID
+    [HttpPost]
+    public Vault AddVault ([FromBody] Vault vault) {
+      if (ModelState.IsValid) {
+        return _repo.AddVault (vault);
+      } else {
+        return null;
+      }
     }
-  }
-  //TESTING: GET ALL VAULTS
-  [HttpGet]
-  public IEnumerable<Vault> GetAllVaults() {
-    return _repo.GetAllVaults();
-  }
+    //ADD KEEP TO A VAULT (ADD RECORD TO VAULTKEEPS)
+    //PASS in  KEEPID, VAULTID, USERID -- POST -- KeepKeep?? hahahaha
+    [HttpPost("/api/vaultkeeps")]
+    public Vaultkeeps AddVaultKeep ([FromBody] Vaultkeeps vaultkeep) {
+     
+      if (ModelState.IsValid) {
+        return _repo.AddVaultKeep (vaultkeep);
+      } else {
+        return null;
+      }
+
+    }
+
+    //TESTING: GET ALL VAULTS
+    [HttpGet]
+    public IEnumerable<Vault> GetAllVaults () {
+      return _repo.GetAllVaults ();
+    }
+
+    //GET ALL VAULTKEEPS
+    [HttpGet("/api/vaultkeeps")]
+    public IEnumerable<Vaultkeeps> GetAllVaultKeeps () {
+      return _repo.GetAllVaultKeeps();
+    }
 
   }
 }

@@ -14,15 +14,18 @@ namespace keepr {
     }
 
     //GET KEEP BY ITS ID
-    [HttpGet ("{id}")]
+    [HttpGet ("/api/keep/{id}")]
     public Keep GetById (int id) {
       return _repo.GetById (id);
     }
 
     //GET ALL KEEPS FOR A VAULTID
-    [HttpGet ("{id}")]
-    public IEnumerable<Keep> GetByVaultId (Vault vault, int id) {
-      return _repo.GetByVaultId (vault, id);
+    [HttpGet ("/api/keepbyvault/{vaultId}")]
+    public IEnumerable<KeepsByVaultId> GetByVaultId (int vaultId) {
+      if (ModelState.IsValid) {
+        return _repo.GetByVaultId (vaultId);
+      }
+      return null;
     }
 
     // Delete by keep ID
@@ -31,7 +34,7 @@ namespace keepr {
       return _repo.DeleteByKeepId (id);
     }
 
-    //Update a Keep
+    //Update a Keep / PUBLIC/PRIVATE/INCREASE/DECREASE NUMBER COUNTS
     [HttpPut]
     public Keep UpdateKeep (int id, Keep keep) {
       if (ModelState.IsValid) {
@@ -40,9 +43,9 @@ namespace keepr {
         return null;
       }
     }
-//ADD KEEP
+    //CREATE KEEP
     [HttpPost]
-    public Keep AddKeep (Keep keep) {
+    public Keep AddKeep ([FromBody] Keep keep) {
       if (ModelState.IsValid) {
         return _repo.AddKeep (keep);
       } else {

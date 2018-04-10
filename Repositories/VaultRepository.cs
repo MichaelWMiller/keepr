@@ -31,15 +31,11 @@ namespace keepr.Repositories {
 
     //Query by UserID
 
-    public IEnumerable<Vault> GetByUserId (User user) {
-      int id = user.Id;
+    public IEnumerable<Vault> GetByUserId (int id) {
       return _db.Query<Vault> (@"
-        SELECT * FROM vaultkeeps vk
-        INNER JOIN vaults v ON v.id = vk.keepId 
-        WHERE (userid = @Id)
-      ", new {
-        Id = id
-      });
+        select * from vaults
+        where userid = @userid
+      ", new { userid = id});
     }
 
     //Delete vault by Id
@@ -64,11 +60,33 @@ namespace keepr.Repositories {
       }
     }
 
+    // ADD VAULTKEEP
+    public Vaultkeeps AddVaultKeep (Vaultkeeps vaultkeep)
+    {
+      
+      int id = _db.ExecuteScalar<int>($@"
+      INSERT INTO vaultkeeps
+      ( vaultid, keepid, userid)
+        VALUES ( @VaultId, @KeepId, @UserId
+      )
+      ", vaultkeep);
+      vaultkeep.Id = id;
+      return vaultkeep;
+    
+    }
+
     //TESTING ONLY - GET ALL VAULTS
 
     public IEnumerable<Vault> GetAllVaults () {
       return _db.Query<Vault> (@"
       select * from vaults
+      ");
+    }
+
+    //TESTING: GET ALL VAULTKEEPS
+    public IEnumerable<Vaultkeeps> GetAllVaultKeeps() {
+      return _db.Query<Vaultkeeps> (@"
+      select * from vaultkeeps
       ");
     }
 
