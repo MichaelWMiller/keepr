@@ -59,5 +59,11 @@ namespace keepr {
       return _repo.GetAllKeeps ();
     }
 
+    //GetPublicKeeps
+    [HttpGet("/api/public/keep")]
+    public IEnumerable<Keep> GetPublicKeeps() {
+      return _repo.GetPublicKeeps();
+    }
+
   }
 }

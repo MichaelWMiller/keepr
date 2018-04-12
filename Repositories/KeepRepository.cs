@@ -88,6 +88,10 @@ namespace keepr.Repositories{
       ");
     }
 
+    public IEnumerable<Keep> GetPublicKeeps(){
+       return _db.Query<Keep>(@"
+    select * from keeps where ispublic = 1");
+    }
 
   }
 }
