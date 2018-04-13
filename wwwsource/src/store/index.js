@@ -1,9 +1,6 @@
 import vue from 'vue';
 import vuex from 'vuex'
-var production = !window.location.host.includes('localhost'); // FOR HEROKU
-
-// var herokuURL = production ? '//meetme-at.herokuapp.com/' : '//localhost:3000/' // FOR HEROKU
-
+//var production = !window.location.host.includes('localhost'); // FOR HEROKU
 import axios from 'axios';
 import router from '../router/index';
 import authStore from './auth-store';
@@ -67,6 +64,31 @@ export default new vuex.Store({
                 .then(res => {
                     var keeps = res.data
                     commit('setKeeps', keeps)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+        getKeepById({ commit, dispatch }, payload) {
+            api
+                .get('keep')
+                .then(res => {
+                    var keeps = res.data
+                    commit('setKeeps', keeps)
+                    dispatch('updateViewCount(keep)')
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+        updateViewCount({ commit, dispatch }, payload) {
+            api
+                .put('keep')
+                .then(res => {
+                    var keeps = res.data
+                    commit('setKeeps', keeps)
+                    dispatch('keepTheKeep')
+                    dispatch('getKeepById')
                 })
                 .catch(err => {
                     console.log(err)

@@ -9,19 +9,25 @@
               <div class="col-md-3"> 
               <img class="pad-r" src="../assets/fish.png" height="100px">
             </div>
-            <div class="col-md-9">
-           
-                <h1><Center>Keep-R</Center></h1>         
-              </div>
+            <div class="col-md-8">
+                <h1><Center>Keep-R</Center></h1>
+                <p><i>Collect your fav gems from the web(Keeps) here and store them in Vaults that you can manage!</i></p>         
+            </div>
+            <div class="col-md-1 align-self-center">
+                <router-link :to="{name: 'Home'}">
+                Home
+                </router-link>
+            </div>
             </div>
           </div>
         </router-link>
       <!-- </div> -->
-      <div v-if="!user._id">
+      <div v-if="!user.id">
         <div class="dropdown pointer">
           <a class="dropdown-toggle" role="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span>
-              <i class="fas fa-sign-in-alt"></i>
+             <div>Hi, Guest!</div>
+              <div><i class="fas fa-sign-in-alt"></i></div>
             </span>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -43,7 +49,7 @@
               </span>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <router-link to="/manage-vaults">
+              <router-link :to="{name: 'VaultList'}">
               <div class="dropdown-item pointer">
                 Manage Vaults
               </div>
@@ -164,7 +170,7 @@
     
     .ddcss {
         color: rgb(60, 81, 121);
-        background-color: rgb(214, 221, 255);
+        background-color: white;
         font-style: normal;
     }
     

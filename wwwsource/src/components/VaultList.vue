@@ -9,6 +9,7 @@
             <i class="fa fa-plus"></i>
           </div>
         </div>
+        
   
         <div v-if="show == true">
           <form class="flexor" @submit.prevent="createVault()">
@@ -23,10 +24,9 @@
             </div>
           </form>
         </div>
-  
-        <div class="list-group">
+          <div class="list-group" >
           <div class="list-group-item" v-for="vault in vaults">
-            <vault :vault="vault"></vault>
+            
           </div>
         </div>
   
@@ -39,8 +39,7 @@
     export default {
         name: 'VaultList',
         components: {
-            Dashboard,
-            Keep
+            Dashboard
         },
         data() {
             return {
@@ -49,7 +48,7 @@
             }
         },
         props: [
-            vault
+
         ],
         mounted() {
             this.$store.dispatch('getVaults');
@@ -73,6 +72,9 @@
                 } else {
                     this.show = false
                 }
+            },
+            getVaults() {
+                this.$store.dispatch('getVaults', user)
             }
         }
     }

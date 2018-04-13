@@ -62,6 +62,7 @@ namespace keepr {
     //GetPublicKeeps
     [HttpGet("/api/public/keep")]
     public IEnumerable<Keep> GetPublicKeeps() {
+      System.Console.WriteLine("In controller get public keeps");
       return _repo.GetPublicKeeps();
     }
 

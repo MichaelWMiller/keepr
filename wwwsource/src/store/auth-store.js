@@ -17,7 +17,7 @@ var account = axios.create({
 
 vue.use(vuex);
 
-export default new vuex.Store({
+const authstore = {
     state: {
         user: {}
     },
@@ -25,6 +25,9 @@ export default new vuex.Store({
         updateUser(state, payload) {
 
             state.user = payload;
+        },
+        clearData(state, payload) {
+            state.user = {}
         }
     },
     actions: {
@@ -71,6 +74,18 @@ export default new vuex.Store({
                 .catch(err => {
                     console.log(err)
                 })
+        },
+        logout({ commit, dispatch }, payload) {
+            account.delete('logout')
+                .then(res => {
+                    commit('updateUser', {})
+                    commit('clearData', {})
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
     }
-});
+};
+
+export default authstore;

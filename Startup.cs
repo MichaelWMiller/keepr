@@ -13,15 +13,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
 
+
 namespace keepr
 {
     public class Startup
     {
-        private readonly string _connectionString; // = "host=localhost;port=3306;database=keepr;user id=mwm;password=admin;";
+        private readonly string _connectionString; 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _connectionString = configuration.GetSection("DB").GetValue<string>("MySQLConnectionString");
+           _connectionString = configuration.GetSection("DB").GetValue<string>("MySQLConnectionString");
         }
 
         public IConfiguration Configuration { get; }
@@ -43,6 +44,7 @@ namespace keepr
                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials();
                });
            });
+           
             services.AddMvc();
             services.AddTransient<IDbConnection>(x => CreateDBContext());
             services.AddTransient<UserRepository>();

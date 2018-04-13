@@ -20,7 +20,7 @@ namespace keepr.Repositories{
           articleurl, tags, ispublic, nbrviews, nbrkeeps, userid)
           VALUES (
             @Id, @Name, @Description, @Imgurl, @Articleurl, @Tags, @Ispublic, 
-            @Nbrviews, @Nbrkeeps, UserId
+            @Nbrviews, @Nbrkeeps, @UserId
           )
         
       ", keep);
@@ -63,7 +63,7 @@ namespace keepr.Repositories{
 
 //UPDATE A KEEP - works
     public Keep UpdateKeep (Keep keep, int id) {
-        
+         
         _db.Execute(@"
         UPDATE keeps SET
         name = @Name,
@@ -89,6 +89,7 @@ namespace keepr.Repositories{
     }
 
     public IEnumerable<Keep> GetPublicKeeps(){
+      System.Console.WriteLine("In repo.getPublicKeeps");
        return _db.Query<Keep>(@"
     select * from keeps where ispublic = 1");
     }
